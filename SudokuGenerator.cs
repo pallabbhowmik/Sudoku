@@ -132,7 +132,7 @@ namespace Sudoku
                     do
                     {
                         num = RANDOM.Next(SIZE) + 1;
-                    } while (!IsSafe(board, row, col, num));
+                    } while (!IsSafe(board, row + i, col + j, num));
                     board[row + i, col + j] = num;
                 }
             }
@@ -194,9 +194,31 @@ namespace Sudoku
             {
                 for (int j = 0; j < SIZE; j++)
                 {
-                        Form1.dataGridView1.Rows[i].Cells[j].Value = boardBackup[i, j].ToString();
+                    Form1.dataGridView1.Rows[i].Cells[j].Value = boardBackup[i, j].ToString();
                 }
             }
+        }
+
+        internal static bool RevealHint()
+        {
+            var emptyCells = new List<(int row, int col)>();
+            for (int i = 0; i < SIZE; i++)
+            {
+                for (int j = 0; j < SIZE; j++)
+                {
+                    var val = Form1.dataGridView1.Rows[i].Cells[j].Value;
+                    if (val == null || string.IsNullOrWhiteSpace(val.ToString()))
+                        emptyCells.Add((i, j));
+                }
+            }
+
+            if (emptyCells.Count == 0)
+                return false;
+
+            var (r, c) = emptyCells[RANDOM.Next(emptyCells.Count)];
+            Form1.dataGridView1.Rows[r].Cells[c].Value = boardBackup[r, c].ToString();
+            DisableCell(r, c);
+            return true;
         }
         private static void DisableCell(int rowIndex, int columnIndex)
         {

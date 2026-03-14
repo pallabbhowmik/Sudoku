@@ -39,6 +39,9 @@ namespace Sudoku
             lblSelectDifficulty = new Label();
             btnStartGame = new Button();
             lblRemarks = new Label();
+            btnHint = new Button();
+            lblTimer = new Label();
+            lblRemaining = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -64,6 +67,7 @@ namespace Sudoku
             dataGridView1.Size = new Size(361, 361);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
+            dataGridView1.CellPainting += dataGridView1_CellPainting;
             dataGridView1.CellValidating += dataGridView1_CellValidating;
             dataGridView1.DefaultCellStyle.Font = new Font("Tahoma", 15);
             dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -81,10 +85,10 @@ namespace Sudoku
             // 
             // solveButton
             // 
-            solveButton.Location = new Point(194, 470);
+            solveButton.Location = new Point(129, 470);
             solveButton.Margin = new Padding(4, 3, 4, 3);
             solveButton.Name = "solveButton";
-            solveButton.Size = new Size(88, 27);
+            solveButton.Size = new Size(75, 27);
             solveButton.TabIndex = 2;
             solveButton.Text = "Solve";
             solveButton.UseVisualStyleBackColor = true;
@@ -92,10 +96,10 @@ namespace Sudoku
             // 
             // checkButton
             // 
-            checkButton.Location = new Point(365, 470);
+            checkButton.Location = new Point(212, 470);
             checkButton.Margin = new Padding(4, 3, 4, 3);
             checkButton.Name = "checkButton";
-            checkButton.Size = new Size(88, 27);
+            checkButton.Size = new Size(75, 27);
             checkButton.TabIndex = 3;
             checkButton.Text = "Check";
             checkButton.UseVisualStyleBackColor = true;
@@ -103,6 +107,7 @@ namespace Sudoku
             // 
             // cmbDifficulty
             // 
+            cmbDifficulty.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbDifficulty.FormattingEnabled = true;
             cmbDifficulty.Items.AddRange(new object[] { "Very Easy", "Easy", "Medium", "Hard", "Very Hard" });
             cmbDifficulty.Location = new Point(203, 11);
@@ -138,12 +143,45 @@ namespace Sudoku
             lblRemarks.Size = new Size(0, 15);
             lblRemarks.TabIndex = 7;
             // 
+            // btnHint
+            // 
+            btnHint.Location = new Point(295, 470);
+            btnHint.Margin = new Padding(4, 3, 4, 3);
+            btnHint.Name = "btnHint";
+            btnHint.Size = new Size(75, 27);
+            btnHint.TabIndex = 8;
+            btnHint.Text = "Hint";
+            btnHint.UseVisualStyleBackColor = true;
+            btnHint.Click += btnHint_Click;
+            // 
+            // lblTimer
+            // 
+            lblTimer.AutoSize = true;
+            lblTimer.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTimer.Location = new Point(33, 35);
+            lblTimer.Name = "lblTimer";
+            lblTimer.Size = new Size(50, 21);
+            lblTimer.TabIndex = 9;
+            lblTimer.Text = "00:00";
+            // 
+            // lblRemaining
+            // 
+            lblRemaining.AutoSize = true;
+            lblRemaining.Location = new Point(375, 474);
+            lblRemaining.Name = "lblRemaining";
+            lblRemaining.Size = new Size(80, 15);
+            lblRemaining.TabIndex = 10;
+            lblRemaining.Text = "Remaining: 0";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(471, 510);
+            Controls.Add(lblRemaining);
+            Controls.Add(lblTimer);
+            Controls.Add(btnHint);
             Controls.Add(lblRemarks);
             Controls.Add(btnStartGame);
             Controls.Add(lblSelectDifficulty);
@@ -168,6 +206,9 @@ namespace Sudoku
         private Label lblSelectDifficulty;
         private Button btnStartGame;
         private Label lblRemarks;
+        private Button btnHint;
+        private Label lblTimer;
+        private Label lblRemaining;
         internal static DataGridView dataGridView1;
     }
 }
